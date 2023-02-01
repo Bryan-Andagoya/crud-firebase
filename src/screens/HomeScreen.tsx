@@ -1,15 +1,11 @@
 import React, { useEffect } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
 
 import { TaskCard } from "../components";
 import { useTaskStore } from "../hooks";
 import { TaskModel } from "../models";
+
+const ListSeparator = () => <View style={styles.separator} />;
 
 export const HomeScreen = () => {
   const { tasks, getTasks } = useTaskStore();
@@ -32,7 +28,12 @@ export const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <FlatList data={tasks} renderItem={renderListItem} />
+      <FlatList
+        style={styles.list}
+        data={tasks}
+        renderItem={renderListItem}
+        ItemSeparatorComponent={ListSeparator}
+      />
     </View>
   );
 };
@@ -42,5 +43,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "white",
+  },
+  separator: {
+    height: 8,
+  },
+  list: {
+    padding: 8,
   },
 });
